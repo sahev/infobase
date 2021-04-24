@@ -8,4 +8,5 @@ export class Users extends Document {
     ddd: string;
     numero: string;
   }>;
+  token: string;
 }
