@@ -13,18 +13,13 @@ export class SigninService {
     const user = await this.usersService.getUserByEmail(data.email);
 
     if (user && compareSync(data.password, user.senha)) {
+      this.usersService.setLastAccess(data.email);
       return user;
     }
     return null;
   }
   async login(data: any) {
     const user = await this.usersService.getUserByEmail(data.email);
-    // const payload = { user: user._id, email: data.email };
-    // console.log('payload ', payload);
-
-    return {
-      // access_token: this.jwtService.sign(payload),
-      user,
-    };
+    return { user };
   }
 }

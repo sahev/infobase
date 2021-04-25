@@ -9,4 +9,5 @@ export class Users extends Document {
     numero: string;
   }>;
   token: string;
+  ultimo_login: Date;
 }
