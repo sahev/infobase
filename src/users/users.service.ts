@@ -2,18 +2,18 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { v4 } from 'uuid';
-import { Users } from './users.dto';
+import { UsersDTO } from './users.dto';
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel('Users') private readonly usersModel: Model<Users>,
+    @InjectModel('Users') private readonly usersModel: Model<UsersDTO>,
     private jwtService: JwtService,
   ) {}
 
-  async newUser(data: Users) {
+  async newUser(data: UsersDTO) {
     const encryptedPass = this.encryptData(data.senha);
     const user = await this.usersModel.findOne({ email: data.email });
     data._id = v4();

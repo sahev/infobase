@@ -16,8 +16,8 @@ export class JwtGuard extends AuthGuard('jwt') {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const tokensent = request.headers.authorization.replace('Bearer ', '');
-    const user = await this.usersService.getUserByUserId(request.params._id);
-    const isValid = await this.usersService.validAccess(request.params._id);
+    const user = await this.usersService.getUserByUserId(request.params.userid);
+    const isValid = await this.usersService.validAccess(request.params.userid);
 
     if (user && compareSync(tokensent, user.token)) {
       if (isValid) return true;
